@@ -17,7 +17,7 @@ public class UserServiceImpl  implements UserService {
         }
         UsersDb tmp = UsersDb.builder()
                 .login(login)
-                .password(String.valueOf(password.hashCode()))
+                .password(password)
                 .name(name)
                 .build();
         usersDbRepository.save(tmp);
@@ -25,13 +25,13 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public String auth(String login, String password) {
+    public Long auth(String login, String password) {
         if (!usersDbRepository.existsByLogin(login)) {
-            return "нема логина";
+            return (long) -1;
         }
-        if(!usersDbRepository.existsByLoginAndPassword(login, String.valueOf(password.hashCode()))){
-            return "неверный пароль";
+        if(!usersDbRepository.existsByLoginAndPassword(login, password)){
+            return (long) -2;
         }
-        return "ok";
+        return usersDbRepository.findByLoginAndPassword(login, password).getId();
     }
 }
