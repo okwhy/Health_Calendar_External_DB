@@ -18,9 +18,9 @@ public class Note {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_date")
-    private Date fkDate;
+//    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    @JoinColumn(name = "fk_date")
+//    private Date fkDate;
 
     @Column(name = "type", nullable = false, length = Integer.MAX_VALUE)
     private String type;

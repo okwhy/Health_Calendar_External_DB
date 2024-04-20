@@ -9,4 +9,5 @@ public interface UsersDbRepository extends JpaRepository<UsersDb, Long> {
     boolean existsByLogin(String login);
     boolean existsByLoginAndPassword(String login,String password);
     UsersDb findByLoginAndPassword(String login, String password);
+
 }

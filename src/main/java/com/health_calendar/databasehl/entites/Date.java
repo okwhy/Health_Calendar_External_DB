@@ -3,7 +3,9 @@ package com.health_calendar.databasehl.entites;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -32,7 +34,13 @@ public class Date {
     @JoinColumn(name = "fk_user", nullable = false)
     private UsersDb fkUser;
 
-    @OneToMany(mappedBy = "fkDate")
-    private Set<Note> notes = new LinkedHashSet<>();
+    @OneToMany(targetEntity=Note.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name="fk_date",referencedColumnName = "id", nullable = false)
+            private List<Note> notes = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "fkDate",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Note> notes = new LinkedHashSet<>();
+
 
 }
