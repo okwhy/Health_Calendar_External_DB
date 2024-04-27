@@ -1,10 +1,7 @@
 package com.health_calendar.databasehl.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "group_creator")
+@Builder
 public class GroupCreator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

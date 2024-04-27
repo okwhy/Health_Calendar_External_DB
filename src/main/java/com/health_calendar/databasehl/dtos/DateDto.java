@@ -15,4 +15,5 @@ public class DateDto implements Serializable {
     Integer month;
     Integer day;
     Set<NoteDto> notes;
+    String uid;
 }

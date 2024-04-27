@@ -19,4 +19,6 @@ public class DateController {
 //    public boolean add(@PathVariable Long id,@RequestBody Date dateDto) {
 //        return dateService.addDate(dateDto,id);
 //    }
+    @PostMapping("/update/{id}")
+    public boolean update(@PathVariable Long id,@RequestBody DateDto dateDto) {return dateService.updateDate(dateDto,id);}
 }

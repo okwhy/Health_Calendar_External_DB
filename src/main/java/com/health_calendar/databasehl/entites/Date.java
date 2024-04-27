@@ -43,4 +43,7 @@ public class Date {
 //    private Set<Note> notes = new LinkedHashSet<>();
 
 
+    @Column(name = "uid", nullable = false, length = Integer.MAX_VALUE)
+    private String uid;
+
 }

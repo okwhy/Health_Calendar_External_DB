@@ -31,4 +31,19 @@ public class DateServiceImpl implements DateService {
         return false;
     }
 
+    @Override
+    public boolean updateDate(DateDto dto, Long id) {
+        Date date = modelMapper.map(dto, Date.class);
+
+        Long date_id = dateRepository.findByUid(dto.getUid()).getId();
+
+        date.setId(date_id);
+
+        date.setFkUser(usersDbRepository.findById(id).get());
+
+        dateRepository.save(date);
+
+        return false;
+    }
+
 }

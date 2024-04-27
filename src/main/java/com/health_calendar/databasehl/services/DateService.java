@@ -6,4 +6,5 @@ import com.health_calendar.databasehl.entites.Date;
 public interface DateService {
    boolean addDate(DateDto dto, Long id);
    boolean addDate(Date date, Long id);
+   boolean updateDate(DateDto date, Long id);
 }
