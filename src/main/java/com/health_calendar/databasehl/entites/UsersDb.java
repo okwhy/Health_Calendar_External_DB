@@ -3,7 +3,9 @@ package com.health_calendar.databasehl.entites;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class UsersDb {
     private String password;
 
     @OneToMany(mappedBy = "fkUser")
-    private Set<Date> dates = new LinkedHashSet<>();
+    private List<Date> dates = new ArrayList<>();
 
     @OneToMany(mappedBy = "fkCreator")
     private Set<GroupCreator> groupCreators = new LinkedHashSet<>();

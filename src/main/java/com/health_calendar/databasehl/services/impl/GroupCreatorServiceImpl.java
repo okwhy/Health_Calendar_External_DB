@@ -1,15 +1,20 @@
 package com.health_calendar.databasehl.services.impl;
 
+import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.GroupCreator;
+import com.health_calendar.databasehl.entites.GroupMember;
+import com.health_calendar.databasehl.entites.UsersDb;
 import com.health_calendar.databasehl.repos.GroupCreatorRepository;
+import com.health_calendar.databasehl.repos.GroupMemberRepository;
 import com.health_calendar.databasehl.repos.UsersDbRepository;
 import com.health_calendar.databasehl.services.GroupCreatorService;
 import com.health_calendar.databasehl.utils.RandomUtil;
 import lombok.Data;
-import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Data
@@ -17,6 +22,7 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
 
     private final UsersDbRepository usersDbRepository;
     private final GroupCreatorRepository groupCreatorRepository;
+    private final GroupMemberRepository groupMemberRepository;
 
 
     @Override
@@ -46,6 +52,41 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
 
         return groupCreatorRepository.findByFkCreator(usersDbRepository.findById(creator_id).get());
 
+    }
+
+    @Override
+    public List<GroupCreator> getAllUserGroups(Long user_id) {
+        return groupMemberRepository.findByFkUser_Id(user_id)
+                .stream()
+                .map(GroupMember::getFkGroup)
+                .toList();
+    }
+    @Override
+    public void addUser(Long user_id, String key){
+        GroupCreator group = groupCreatorRepository.findByAccessKey(key);
+        GroupMember newGroup = GroupMember.builder()
+                .fkGroup(group)
+                .fkUser(usersDbRepository.findById(user_id).get())
+                .build();
+        groupMemberRepository.save(newGroup);
+    }
+    @Override
+    public void deleteUser(Long user_id, String key){
+        GroupMember groupMember= groupMemberRepository.findByFkUser_IdAndFkGroup_AccessKey(user_id, key);
+        groupMemberRepository.delete(groupMember);
+    }
+    @Override
+    public Map<UsersDb,List<Date>> getDates(Long creator_id,String key){
+        GroupCreator groupCreator=groupCreatorRepository.findByAccessKey(key);
+        if(!groupCreator.getFkCreator().getId().equals(creator_id)){
+            return null;
+        }
+        Map<UsersDb,List<Date>> res=new HashMap<>();
+        List<UsersDb> users= usersDbRepository.findByGroupMembers_FkGroup(groupCreator);
+        for(UsersDb usersDb:users){
+           res.put(usersDb,usersDb.getDates());
+        }
+        return res;
     }
 
 

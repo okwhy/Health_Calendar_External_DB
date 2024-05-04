@@ -9,4 +9,5 @@ import java.util.List;
 public interface GroupCreatorRepository extends JpaRepository<GroupCreator, Long> {
     List<GroupCreator> findByFkCreator(UsersDb fk_creator);
 
+    GroupCreator findByAccessKey(String accessKey);
 }

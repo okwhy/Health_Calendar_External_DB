@@ -35,7 +35,7 @@ public class Date {
     private UsersDb fkUser;
 
     @OneToMany(targetEntity=Note.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval = true)
+            fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name="fk_date",referencedColumnName = "id", nullable = false)
             private List<Note> notes = new ArrayList<>();
 

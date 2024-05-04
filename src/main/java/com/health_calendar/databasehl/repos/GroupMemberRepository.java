@@ -13,4 +13,11 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, Long> 
 
     List<GroupMember> findByFkUser(UsersDb user);
 
+    List<GroupMember> findDistinctByFkUser_Id(Long id);
+
+    List<GroupMember> findByFkUser_Id(Long userId);
+
+    GroupMember findByFkUser_IdAndFkGroup(Long id, GroupCreator fkGroup);
+
+    GroupMember findByFkUser_IdAndFkGroup_AccessKey(Long id, String accessKey);
 }
