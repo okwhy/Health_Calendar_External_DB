@@ -1,5 +1,6 @@
 package com.health_calendar.databasehl.services.impl;
 
+import com.health_calendar.databasehl.dtos.UsersDbDto;
 import com.health_calendar.databasehl.entites.UsersDb;
 import com.health_calendar.databasehl.repos.UsersDbRepository;
 import com.health_calendar.databasehl.services.UserService;
@@ -25,13 +26,14 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public Long auth(String login, String password) {
+    public UsersDbDto auth(String login, String password) {
         if (!usersDbRepository.existsByLogin(login)) {
-            return (long) -1;
+            return new UsersDbDto((long) -1,null);
         }
         if(!usersDbRepository.existsByLoginAndPassword(login, password)){
-            return (long) -2;
+            return new UsersDbDto((long) -2,null);
         }
-        return usersDbRepository.findByLoginAndPassword(login, password).getId();
+        var tmp = usersDbRepository.findByLoginAndPassword(login, password);
+        return new UsersDbDto(tmp.getId(),tmp.getLogin());
     }
 }

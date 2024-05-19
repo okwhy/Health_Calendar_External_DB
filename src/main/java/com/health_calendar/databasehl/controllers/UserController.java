@@ -1,5 +1,6 @@
 package com.health_calendar.databasehl.controllers;
 
+import com.health_calendar.databasehl.dtos.UsersDbDto;
 import com.health_calendar.databasehl.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class UserController {
         return userService.addUser(login,password,name);
     }
     @GetMapping("/login")
-    public Long login(@RequestParam String login,
-                      @RequestParam String password){
+    public UsersDbDto login(@RequestParam String login,
+                            @RequestParam String password){
         return userService.auth(login, password);
     }
 }
