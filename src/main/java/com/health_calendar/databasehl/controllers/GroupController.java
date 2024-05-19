@@ -35,6 +35,11 @@ public class GroupController {
 
         return groupCreatorService.getAllGroups(id);
     }
+    @GetMapping("/byuser/{id}")
+    public List<GroupCreator> getAllUserGroups(@PathVariable Long id) {
+
+        return groupCreatorService.getAllGroups(id);
+    }
 
     @PostMapping("/users/add")
     public void addUser(@RequestParam Long id, @RequestParam String key) {
