@@ -1,11 +1,9 @@
 package com.health_calendar.databasehl.controllers;
 
-import com.health_calendar.databasehl.dtos.DateDto;
+import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
 import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
-import com.health_calendar.databasehl.entites.GroupCreator;
 import com.health_calendar.databasehl.entites.UsersDb;
-import com.health_calendar.databasehl.services.DateService;
 import com.health_calendar.databasehl.services.GroupCreatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +30,7 @@ public class GroupController {
     }
 
     @GetMapping("/users/{id}")
-    public List<GroupCreator> getAllGroups(@PathVariable Long id) {
+    public List<GroupCreatorForCreatorDto> getAllGroups(@PathVariable Long id) {
 
         return groupCreatorService.getAllGroups(id);
     }

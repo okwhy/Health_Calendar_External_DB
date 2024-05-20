@@ -1,5 +1,6 @@
 package com.health_calendar.databasehl.services.impl;
 
+import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
 import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.GroupCreator;
@@ -52,9 +53,10 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
     }
 
     @Override
-    public List<GroupCreator> getAllGroups(Long creator_id) {
+    public List<GroupCreatorForCreatorDto> getAllGroups(Long creator_id) {
 
-        return groupCreatorRepository.findByFkCreator(usersDbRepository.findById(creator_id).get());
+        List<GroupCreator> groupCreators= groupCreatorRepository.findByFkCreator(usersDbRepository.findById(creator_id).get());
+        return modelMapper.map(groupCreators, new TypeToken<List<GroupCreatorForCreatorDto>>(){}.getType());
 
     }
 

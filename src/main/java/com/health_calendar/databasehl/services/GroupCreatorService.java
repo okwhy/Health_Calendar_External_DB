@@ -1,9 +1,9 @@
 package com.health_calendar.databasehl.services;
 
 
+import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
 import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
-import com.health_calendar.databasehl.entites.GroupCreator;
 import com.health_calendar.databasehl.entites.UsersDb;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface GroupCreatorService {
 
     void deleteGroup(Long id);
 
-    List<GroupCreator> getAllGroups(Long creator_id);
+    List<GroupCreatorForCreatorDto> getAllGroups(Long creator_id);
 
     List<GroupCreatorToMemberDto> getAllUserGroups(Long creator_id);
 
