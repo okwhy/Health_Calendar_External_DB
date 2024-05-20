@@ -1,6 +1,7 @@
 package com.health_calendar.databasehl.services;
 
 
+import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.GroupCreator;
 import com.health_calendar.databasehl.entites.UsersDb;
@@ -16,7 +17,7 @@ public interface GroupCreatorService {
 
     List<GroupCreator> getAllGroups(Long creator_id);
 
-    List<GroupCreator> getAllUserGroups(Long creator_id);
+    List<GroupCreatorToMemberDto> getAllUserGroups(Long creator_id);
 
     void addUser(Long user_id, String key);
 

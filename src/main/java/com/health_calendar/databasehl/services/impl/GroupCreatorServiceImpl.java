@@ -1,5 +1,6 @@
 package com.health_calendar.databasehl.services.impl;
 
+import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.GroupCreator;
 import com.health_calendar.databasehl.entites.GroupMember;
@@ -10,6 +11,8 @@ import com.health_calendar.databasehl.repos.UsersDbRepository;
 import com.health_calendar.databasehl.services.GroupCreatorService;
 import com.health_calendar.databasehl.utils.RandomUtil;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
     private final UsersDbRepository usersDbRepository;
     private final GroupCreatorRepository groupCreatorRepository;
     private final GroupMemberRepository groupMemberRepository;
+    private final ModelMapper modelMapper;
 
 
     @Override
@@ -55,11 +59,13 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
     }
 
     @Override
-    public List<GroupCreator> getAllUserGroups(Long user_id) {
-        return groupMemberRepository.findByFkUser_Id(user_id)
+    public List<GroupCreatorToMemberDto> getAllUserGroups(Long user_id) {
+         List<GroupCreator> groupCreators=groupMemberRepository.findByFkUser_Id(user_id)
                 .stream()
                 .map(GroupMember::getFkGroup)
                 .toList();
+        return modelMapper.map(groupCreators,new TypeToken<List<GroupCreatorToMemberDto>>(){}.getType());
+
     }
     @Override
     public void addUser(Long user_id, String key){

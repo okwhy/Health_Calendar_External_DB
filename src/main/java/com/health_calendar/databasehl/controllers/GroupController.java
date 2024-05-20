@@ -1,6 +1,7 @@
 package com.health_calendar.databasehl.controllers;
 
 import com.health_calendar.databasehl.dtos.DateDto;
+import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.GroupCreator;
 import com.health_calendar.databasehl.entites.UsersDb;
@@ -36,7 +37,7 @@ public class GroupController {
         return groupCreatorService.getAllGroups(id);
     }
     @GetMapping("/byuser/{id}")
-    public List<GroupCreator> getAllUserGroups(@PathVariable Long id) {
+    public List<GroupCreatorToMemberDto> getAllUserGroups(@PathVariable Long id) {
 
         return groupCreatorService.getAllUserGroups(id);
     }
