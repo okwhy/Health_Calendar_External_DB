@@ -79,8 +79,8 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
         groupMemberRepository.save(newGroup);
     }
     @Override
-    public void deleteUser(Long user_id, String key){
-        GroupMember groupMember= groupMemberRepository.findByFkUser_IdAndFkGroup_AccessKey(user_id, key);
+    public void deleteUser(Long user_id, Long id){
+        GroupMember groupMember= groupMemberRepository.findByFkUser_IdAndFkGroup_Id(user_id, id);
         groupMemberRepository.delete(groupMember);
     }
     @Override

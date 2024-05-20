@@ -20,4 +20,6 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, Long> 
     GroupMember findByFkUser_IdAndFkGroup(Long id, GroupCreator fkGroup);
 
     GroupMember findByFkUser_IdAndFkGroup_AccessKey(Long id, String accessKey);
+
+    GroupMember findByFkUser_IdAndFkGroup_Id(Long id, Long id1);
 }

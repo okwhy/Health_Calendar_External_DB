@@ -28,6 +28,10 @@ public class GroupController {
 
         groupCreatorService.deleteGroup(id);
     }
+    @DeleteMapping("/users/{user_id}")
+    public void deleteUser(@PathVariable Long user_id, @RequestParam Long id) {
+        groupCreatorService.deleteUser(user_id,id);
+    }
 
     @GetMapping("/users/{id}")
     public List<GroupCreatorForCreatorDto> getAllGroups(@PathVariable Long id) {
