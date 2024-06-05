@@ -27,6 +27,7 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public UsersDbDto auth(String login, String password) {
+        System.out.println(login +" "+password);
         if (!usersDbRepository.existsByLogin(login)) {
             return new UsersDbDto((long) -1,null);
         }
@@ -34,6 +35,6 @@ public class UserServiceImpl  implements UserService {
             return new UsersDbDto((long) -2,null);
         }
         var tmp = usersDbRepository.findByLoginAndPassword(login, password);
-        return new UsersDbDto(tmp.getId(),tmp.getLogin());
+        return new UsersDbDto(tmp.getId(),tmp.getName());
     }
 }

@@ -21,7 +21,6 @@ public interface GroupCreatorService {
 
     void addUser(Long user_id, String key);
 
-
 //    Map<UsersDb,List<Date>> getDatesForPeriod(Long creator_id, String key);
 
     void deleteUser(Long user_id, Long id);

@@ -18,5 +18,6 @@ public class DateDto1 implements Serializable {
     private Integer year;
     private Integer month;
     private Integer day;
+    private String uid;
     private List<NoteDto1> notes = new ArrayList<>();
 }

@@ -1,13 +1,19 @@
 package com.health_calendar.databasehl.services.impl;
 
 import com.health_calendar.databasehl.dtos.DateDto;
+import com.health_calendar.databasehl.dtos.DateDto1;
+import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.repos.DateRepository;
 import com.health_calendar.databasehl.repos.UsersDbRepository;
 import com.health_calendar.databasehl.services.DateService;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Data
@@ -44,6 +50,12 @@ public class DateServiceImpl implements DateService {
         dateRepository.save(date);
 
         return false;
+    }
+
+    @Override
+    public List<DateDto1> getDates(Long id) {
+        List<Date> tmp=dateRepository.findByFkUser_Id(id);
+        return modelMapper.map(tmp, new TypeToken<List<DateDto1>>(){}.getType());
     }
 
 }
