@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface GroupCreatorService {
 
-    String createGroup(Long creator_id,String name);
+    GroupCreatorForCreatorDto createGroup(Long creator_id,String name);
 
     void deleteGroup(Long id);
 
@@ -19,7 +19,7 @@ public interface GroupCreatorService {
 
     List<GroupCreatorToMemberDto> getAllUserGroups(Long creator_id);
 
-    void addUser(Long user_id, String key);
+    GroupCreatorToMemberDto addUser(Long user_id, String key);
 
 //    Map<UsersDb,List<Date>> getDatesForPeriod(Long creator_id, String key);
 

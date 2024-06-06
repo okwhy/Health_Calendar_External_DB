@@ -2,7 +2,7 @@ package com.health_calendar.databasehl.services.impl;
 
 import com.health_calendar.databasehl.dtos.DateDto;
 import com.health_calendar.databasehl.dtos.DateDto1;
-import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
+import com.health_calendar.databasehl.dtos.DateDtoIDMutable;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.repos.DateRepository;
 import com.health_calendar.databasehl.repos.UsersDbRepository;
@@ -12,7 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,18 +37,23 @@ public class DateServiceImpl implements DateService {
     }
 
     @Override
-    public boolean updateDate(DateDto dto, Long id) {
+    public DateDtoIDMutable addDate(DateDto1 dto, Long id) {
         Date date = modelMapper.map(dto, Date.class);
+        date.setFkUser(usersDbRepository.findById(id).get());
+        return modelMapper.map(dateRepository.save(date),DateDtoIDMutable.class);
+    }
 
+    @Override
+    public DateDtoIDMutable updateDate(DateDto1 dto, Long id) {
+        Date date = modelMapper.map(dto, Date.class);
+        System.out.println("ad");
         Long date_id = dateRepository.findByUid(dto.getUid()).getId();
 
         date.setId(date_id);
 
         date.setFkUser(usersDbRepository.findById(id).get());
 
-        dateRepository.save(date);
-
-        return false;
+        return modelMapper.map(dateRepository.save(date),DateDtoIDMutable.class);
     }
 
     @Override

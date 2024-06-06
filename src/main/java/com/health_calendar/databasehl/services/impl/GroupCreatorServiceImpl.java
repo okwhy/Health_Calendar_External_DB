@@ -17,6 +17,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
 
 
     @Override
-    public String createGroup(Long creator_id, String name) {
+    public GroupCreatorForCreatorDto createGroup(Long creator_id, String name) {
 
         String randomString = RandomUtil.generateRandomString(6);
 
@@ -39,10 +40,11 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
                 .fkCreator(usersDbRepository.findById(creator_id).get())
                 .groupName(name)
                 .accessKey(randomString)
+                .groupMembers(new HashSet<>())
                 .build();
-        groupCreatorRepository.save(groupCreator);
+       GroupCreator tmp=  groupCreatorRepository.save(groupCreator);
 
-        return randomString;
+        return modelMapper.map(tmp, GroupCreatorForCreatorDto.class);
     }
 
     @Override
@@ -70,13 +72,16 @@ public class GroupCreatorServiceImpl implements GroupCreatorService {
 
     }
     @Override
-    public void addUser(Long user_id, String key){
+    public GroupCreatorToMemberDto addUser(Long user_id, String key){
         GroupCreator group = groupCreatorRepository.findByAccessKey(key);
         GroupMember newGroup = GroupMember.builder()
                 .fkGroup(group)
                 .fkUser(usersDbRepository.findById(user_id).get())
                 .build();
-        groupMemberRepository.save(newGroup);
+        GroupMember tmp= groupMemberRepository.save(newGroup);
+        GroupCreatorToMemberDto res=modelMapper.map(tmp,GroupCreatorToMemberDto.class);
+        res.setId(tmp.getFkGroup().getId());
+        return res;
     }
     @Override
     public void deleteUser(Long user_id, Long id){

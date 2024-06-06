@@ -2,6 +2,7 @@ package com.health_calendar.databasehl.controllers;
 
 import com.health_calendar.databasehl.dtos.GroupCreatorForCreatorDto;
 import com.health_calendar.databasehl.dtos.GroupCreatorToMemberDto;
+import com.health_calendar.databasehl.dtos.GroupMemberForCreatorDto;
 import com.health_calendar.databasehl.entites.Date;
 import com.health_calendar.databasehl.entites.UsersDb;
 import com.health_calendar.databasehl.services.GroupCreatorService;
@@ -18,7 +19,7 @@ public class GroupController {
     private final GroupCreatorService groupCreatorService;
 
     @PostMapping("/add")
-    public String add(@RequestParam Long creator_id, @RequestParam String name) {
+    public GroupCreatorForCreatorDto add(@RequestParam Long creator_id, @RequestParam String name) {
 
         return groupCreatorService.createGroup(creator_id, name);
     }
@@ -45,8 +46,8 @@ public class GroupController {
     }
 
     @PostMapping("/users/add")
-    public void addUser(@RequestParam Long id, @RequestParam String key) {
-        groupCreatorService.addUser(id,key);
+    public GroupCreatorToMemberDto addUser(@RequestParam Long id, @RequestParam String key) {
+       return groupCreatorService.addUser(id,key);
     }
     @GetMapping("/users/{id}/dates")
     public Map<UsersDb,List<Date>> getUserDates(@PathVariable Long id,@RequestParam String key) {
